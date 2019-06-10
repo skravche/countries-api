@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CountriesView from './coutriesView';
 
 const baseUrl = `https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json`;
 const titles = {
@@ -36,13 +37,40 @@ class CountriesExe extends Component {
 
   render() {
     const { isLoaded, items } = this.state;
+
     if (!isLoaded) {
       return <div>Loading the data...</div>;
     } else {
       let i = 0;
       return (
         <div>
-          <ul>
+          <table>
+            <tr>
+              <th>#</th>
+              <th>Country</th>
+              <th>Name</th>
+              <th>WebPage</th>
+              <th>Save Num</th>
+            </tr>
+
+            {items.map(items => (
+              <tr key={i++}>
+                <td>{i}</td>
+                <td>{items.country}</td>
+                <td>{items.name}</td>
+                <td>
+                  <a href={items.web_pages} target="_blank">
+                    {items.web_pages}
+                  </a>
+                </td>
+                <td>
+                  <input type="checkbox" name="check" />
+                </td>
+              </tr>
+            ))}
+          </table>
+
+          {/* <ul>
             {items.map(items => (
               <li key={i++}>
                 {i}||
@@ -52,13 +80,13 @@ class CountriesExe extends Component {
                 </a>
                 |
                 <a href={items.alpha_two_code} target="_blank">
-                  >link
+                  link
                 </a>
                 |{items.domains}
               </li>
             ))}
             ;
-          </ul>
+          </ul> */}
         </div>
       );
     }
